@@ -86,11 +86,11 @@ graph LR
 ## 📈 Project Results & Showcase
 ### 3️⃣ Predicting Plant Length Using Linear Regression
 
-**Script:** [`03_linear_regression.R`](./results/3_Predicting_Plant_Height(linear_reggression).R)
+**Script:** [`03_linear_regression.R`](./results/03_linear_regression.R)
 
 **Description:**
 
-This Project models plant Length (`L`) as a function of the other measured traits to quantify how strongly they are related. Three **simple linear regressions** (predictors: `B`, `SL`, `RL`) and one **multiple linear regression** (`L ~ B + SL + RL`) are fitted on 100 genotypes, followed by residual diagnostics to validate the model assumptions (`α = 0.05`).
+This module models plant Length (`L`) as a function of the other measured traits to quantify how strongly they are related. Three **simple linear regressions** (predictors: `B`, `SL`, `RL`) and one **multiple linear regression** (`L ~ B + SL + RL`) are fitted on 100 genotypes, followed by residual diagnostics to validate the statistical assumptions of the best model (`α = 0.05`).
 
 ---
 
@@ -114,7 +114,7 @@ This Project models plant Length (`L`) as a function of the other measured trait
 
 - **Shoot Length (`SL`) is the best single predictor**, explaining **99.61%** of the variation in plant Length (R² = 0.9961, p < 2.2e-16)
 - Prediction equation: **L̂ = 10.71 + 1.265 × SL** — each additional 1 cm of shoot corresponds to ~1.27 cm of plant length
-- All three traits are individually strong predictors (R² ≥ 0.98), confirming tight interdependence among growth traits
+- All three traits are individually strong predictors (R² ≥ 0.98) — the growth traits are strongly interdependent
 
 ---
 
@@ -133,9 +133,9 @@ Overall fit: **R² = 0.9964**, Adj. R² = 0.9963 · F(3, 96) = 8807, p < 2.2e-16
 
 **Key Findings:**
 
-- The combined model is highly significant (p < 2.2e-16) but raises R² only from 0.9961 → **0.9964** versus `SL` alone
+- **The combined model is highly significant** (p < 2.2e-16) but raises R² only from 0.9961 → **0.9964** compared with `SL` alone
 - `SL` (p = 3.79e-11) and `RL` (p = 0.018) remain significant contributors; **`B` becomes non-significant (p = 0.533)** — its information overlaps with the length traits
-- A single, easy field measurement (`SL`) therefore captures nearly all predictive information (parsimonious model)
+- **A single, easy field measurement does nearly the whole job** — the full three-trait model is barely better
 
 ---
 
@@ -147,8 +147,9 @@ Overall fit: **R² = 0.9964**, Adj. R² = 0.9963 · F(3, 96) = 8807, p < 2.2e-16
 
 **Interpretation:**
 
-- Points lie tightly along the fitted line across the full range (SL ≈ 55–70 cm → L ≈ 80–99 cm), confirming a **purely linear, highly consistent relationship**
-- No visible curvature or clustering of residuals around the line, agreeing with R² = 0.9961
+- Observed values lie close to the fitted line over the entire measurement range (SL ≈ 55–70 cm → L ≈ 80–99 cm) — **the linear model captures the relationship well**
+- The association is uniform: each unit increase in shoot length is matched by the same increase in plant length — **a stable, linear relationship with no curvature**
+- The tight clustering of points around the line is the visual form of **R² = 0.9961** — almost all variation in plant length is explained by shoot length alone
 
 ---
 
@@ -160,17 +161,18 @@ Overall fit: **R² = 0.9964**, Adj. R² = 0.9963 · F(3, 96) = 8807, p < 2.2e-16
 
 **Interpretation:**
 
-- **Q-Q plot** is approximately straight → residuals are close to normal, with only slight tail deviation (observations 1, 4, 32 flagged)
-- **Scale-Location** band is roughly horizontal → constant error variance (homoscedasticity) is acceptable
-- **Residuals vs Leverage:** one high-leverage point (obs. 1, leverage ≈ 0.13) lies **inside** the Cook's distance 0.5 contour → no influential outlier
+- **Residuals vs Fitted:** residuals scatter randomly around zero in a flat band — **no systematic pattern**, indicating the linear form is adequate
+- **Normal Q-Q:** standardized residuals track the reference diagonal closely — **errors are approximately normal**, with only mild deviation at the tails
+- **Scale-Location:** residual spread stays roughly constant across fitted values — **homoscedasticity holds** (predictions are equally reliable for small and large plants)
+- **Residuals vs Leverage:** no observation crosses the Cook's distance 0.5 threshold — **flagged genotypes (1, 4, 32) remain within safe limits**, so no single data point dominates the fit
 
 ---
 
 #### 🔍 Key Insights from Project 3:
 
 1. **Shoot length predicts plant height almost perfectly:** `SL` alone explained 99.61% of the variation in plant Length (p < 2.2e-16), the strongest single-trait model.
-2. **Growth traits move together biologically:** all simple regressions exceeded R² of 0.98, indicating that height, breadth, shoot and root growth share a common vigour signal.
-3. **A simple model is enough:** expanding the model added almost nothing (ΔR² = +0.0003), so one quick measurement of shoot length can predict plant height in field screening with residual error of only ~0.32 cm.
+2. **Growth traits share a common vigour signal:** all simple regressions exceeded R² of 0.98, indicating that height, breadth, shoot and root growth are biologically interdependent.
+3. **A simple model is sufficient:** expanding the model added almost nothing (ΔR² ≈ +0.0003) — one quick shoot-length measurement predicts plant height with a residual error of only ~0.32 cm, useful for rapid field screening.
 4. **Shared variance must be reported:** Breadth (`B`) lost significance when combined with `SL` and `RL` (p = 0.533), indicating overlapping information among size traits; flagged observations (1, 4, 32) warrant review before publication.
 5. **Basis for further analysis:** because traits are strongly interdependent, univariate models carry redundant information — multivariate grouping of genotypes is addressed using K-Means clustering and PCA (Project 4).
 

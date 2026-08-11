@@ -176,3 +176,10 @@ Overall fit: **R² = 0.9964**, Adj. R² = 0.9963 · F(3, 96) = 8807, p < 2.2e-16
 4. **Shared variance must be reported:** Breadth (`B`) lost significance when combined with `SL` and `RL` (p = 0.533), indicating overlapping information among size traits; flagged observations (1, 4, 32) warrant review before publication.
 5. **Basis for further analysis:** because traits are strongly interdependent, univariate models carry redundant information — multivariate grouping of genotypes is addressed using K-Means clustering and PCA (Project 4).
 
+---
+---
+<div align="center">
+
+**Data → Code → Decision → Results**
+
+*Research Repeat & Reproduce.*
